@@ -167,3 +167,5 @@ temp/
 sumstats/
 magma_files/
 .snakemake/
+full_scores/
+gs/

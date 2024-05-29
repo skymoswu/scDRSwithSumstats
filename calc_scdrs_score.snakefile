@@ -54,7 +54,7 @@ rule generate_z_file:
     output:
         "magma_files/{trait}_z.tsv"
     shell:
-        "Rscript convert_p_stat.R {input} {output}"
+        "Rscript utils/convert_p_stat.R {input} {output}"
 
 rule munge_gs:
     input:

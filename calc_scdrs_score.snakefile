@@ -68,9 +68,9 @@ rule merge_gs:
     input:
         expand("gs/{trait}.gs", trait = config["traits"].keys())
     output:
-        "full_traits.gs"
+        "temp/full_traits.gs"
     run:
-        with open('full_traits.gs', "a") as summary_file:
+        with open('temp/full_traits.gs', "a") as summary_file:
             summary_file.write("TRAIT	GENESET\n")
             for f in input:
                 stem = re.match("gs/(.*)\.gs", f).group(1)
@@ -78,7 +78,7 @@ rule merge_gs:
 
 rule run_scdrs:
     input:
-        "full_traits.gs",
+        "temp/full_traits.gs",
         config["adata"]
     output:
         expand("{fullscore}/{trait}.full_score.gz", fullscore = config["fullscoredir"], trait = config["traits"].keys())

@@ -1,8 +1,13 @@
-config: "scdrs.yaml"
+configfile: "scdrs.yaml"
+import re
+import pandas as pd
 
 rule all:
-    output:
-        expand("fullscores/{trait}.full_score.gz", trait = config["traits"].keys())
+    input:
+        expand(
+            "{fullscore}/{trait}.full_score.gz",
+            fullscore = config["fullscoredir"],
+            trait = config["traits"].keys())
 
 rule prepare_sumstats:
     input:
@@ -20,9 +25,11 @@ rule generate_magma_input:
         "magma_files/{trait}.loc.tsv",
         "magma_files/{trait}.p.txt"
     run:
-        sumstat = pd.read_table(input, sep = "\t", header = 0)
-        sumstat.loc[:, ["SNP", "CHR", "BP"]].to_csv(f"magma_files/{wildcards.trait}.loc.tsv", sep = "\t", header = False, index = None)
-        sumstat.loc[:, ["SNP", "P", "N"]].to_csv(f"data/sumstats/{wildcards.trait}.p.txt", sep = "\t", index = None)
+        for f in input:
+            print(f)
+            sumstat = pd.read_table(f, sep = "\t", header = 0)
+            sumstat.loc[:, ["SNP", "CHR", "BP"]].to_csv(f"magma_files/{wildcards.trait}.loc.tsv", sep = "\t", header = False, index = None)
+            sumstat.loc[:, ["SNP", "P", "N"]].to_csv(f"magma_files/{wildcards.trait}.p.txt", sep = "\t", index = None)
 
 rule generate_gene_locs:
     input:
@@ -30,16 +37,16 @@ rule generate_gene_locs:
     output:
         "magma_files/{trait}.genes.annot"
     shell:
-        f"magma --annoate --snp-loc {input} --gene-loc {config['gene_loc']} --out magma_files/{wildcards.trait}"
+        "magma --annotate --snp-loc {input} --gene-loc {config[gene_loc]} --out magma_files/{wildcards.trait}"
 
 rule generate_gene_out:
     input:
         "magma_files/{trait}.p.txt",
-        "magma_files/{trait}.gene.annot"
+        "magma_files/{trait}.genes.annot"
     output:
         "magma_files/{trait}.genes.out"
     shell:
-        f"magma --bfile {config['bfile']} --pval {input[0]} ncol=N --gene-annot {input[1]} --out magma_files/{trait}"
+        "magma --bfile {config[bfile]} --pval {input[0]} ncol=N --gene-annot {input[1]} --out magma_files/{wildcards.trait}"
 
 rule generate_z_file:
     input:
@@ -47,7 +54,7 @@ rule generate_z_file:
     output:
         "magma_files/{trait}_z.tsv"
     shell:
-        f"Rscript convert_p_stat.R {input} {output}"
+        "Rscript convert_p_stat.R {input} {output}"
 
 rule munge_gs:
     input:
@@ -55,26 +62,28 @@ rule munge_gs:
     output:
         "gs/{trait}.gs"
     shell:
-        f"scdrs munge-gs --out-file {output} --zscore-file {input} --weight zscore --n-max 1000"
+        "scdrs munge-gs --out-file {output} --zscore-file {input} --weight zscore --n-max 1000"
 
 rule merge_gs:
     input:
-        "gs/{trait}.gs"
+        expand("gs/{trait}.gs", trait = config["traits"].keys())
     output:
         "full_traits.gs"
     run:
-        with open(output, "a") as summary_file:
-            summary_file.write("TRAIT	GENESET")
-            summary_file.write(open(input).readlines()[1].replace("TRAIT", wildcards.trait))
+        with open('full_traits.gs', "a") as summary_file:
+            summary_file.write("TRAIT	GENESET\n")
+            for f in input:
+                stem = re.match("gs/(.*)\.gs", f).group(1)
+                summary_file.write(open(f).readlines()[1].replace("TRAIT", stem))
 
 rule run_scdrs:
     input:
         "full_traits.gs",
         config["adata"]
     output:
-        expand("full_scores/{trait}.full_score.gz", trait = config["traits"].keys())
+        expand("{fullscore}/{trait}.full_score.gz", fullscore = config["fullscoredir"], trait = config["traits"].keys())
     shell:
-        f'''
+        '''
         scdrs compute-score \
         --h5ad-file {input[1]} \
         --h5ad-species human \
@@ -84,5 +93,5 @@ rule run_scdrs:
         --flag-raw-count True \
         --flag-return-ctrl-raw-score False \
         --flag-return-ctrl-norm-score True \
-        --out-folder full_scores/
+        --out-folder {config[fullscoredir]}/
         '''

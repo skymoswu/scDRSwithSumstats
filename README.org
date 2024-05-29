@@ -1,0 +1,18 @@
+* scDRS with Sumstats
+
+Analyze single cell-disease association with scDRS and MAGMA.
+
+** Dependencies
+
+Python dependencies:
+
+- snakemake
+- scDRS
+- pandas
+
+R dependencies:
+
+- tidyverse
+- clusterProfiler
+- org.Hs.eg.db
+- conflicted

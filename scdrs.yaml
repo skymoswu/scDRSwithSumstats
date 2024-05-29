@@ -1,7 +1,8 @@
-adata:  "data/sc/hs_apcs_snn.h5ad"
+adata:  "../20240528_hss_scdrs/data/adata/hs_apcs_snn.h5ad"
 gene_loc: "/home/skymoswu/bin/MAGMA/NCBI37.3/NCBI37.3.gene.loc"
-bfile: "/home/skymoswu/bin/MAGMA/g1000_eur/g100_eur"
+bfile: "/home/skymoswu/bin/MAGMA/g1000_eur/g1000_eur"
+fullscoredir: "./nafld_full_scores"
 
 traits:
-        nafld: 'test.tsv.gz'
-
+        nafld: '../20240414_hss_cellect/munged_stats/nafld/GCST90271622.tsv.gz'
+        pdff: '../20240414_hss_cellect/munged_stats/nafld/PDFF_UKBB.tsv.gz'

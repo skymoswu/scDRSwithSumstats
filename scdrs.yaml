@@ -1,0 +1,7 @@
+adata:  "data/sc/hs_apcs_snn.h5ad"
+gene_loc: "/home/skymoswu/bin/MAGMA/NCBI37.3/NCBI37.3.gene.loc"
+bfile: "/home/skymoswu/bin/MAGMA/g1000_eur/g100_eur"
+
+traits:
+        nafld: 'test.tsv.gz'
+

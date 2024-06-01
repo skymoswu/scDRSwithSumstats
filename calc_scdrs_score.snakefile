@@ -16,7 +16,7 @@ rule prepare_sumstats:
         expand("sumstats/{trait}.tsv.gz", trait = config["traits"].keys())
     run:
         for k, v in config["traits"].items():
-            shell("cp {v} sumstats/{k}.tsv.gz")
+            shell("cp -v {v} sumstats/{k}.tsv.gz")
 
 rule generate_magma_input:
     input:
@@ -68,7 +68,7 @@ rule merge_gs:
     input:
         expand("gs/{trait}.gs", trait = config["traits"].keys())
     output:
-        "temp/full_traits.gs"
+        temp("temp/full_traits.gs")
     run:
         with open('temp/full_traits.gs', "a") as summary_file:
             summary_file.write("TRAIT	GENESET\n")

@@ -162,30 +162,14 @@ cython_debug/
 #.idea/
 
 # Other
-data/
+converse_data/
 temp/
 sumstats/
 magma_files/
+groupwise/
 .snakemake/
 full_scores/
 gs/
-groupwise/bmi1.scdrs_group.cell_lab
-groupwise/bmi2.scdrs_group.cell_lab
-groupwise/bmi3.scdrs_group.cell_lab
-groupwise/bmi4.scdrs_group.cell_lab
-groupwise/bmi5.scdrs_group.cell_lab
-groupwise/ldl1.scdrs_group.cell_lab
-groupwise/ldl2.scdrs_group.cell_lab
-groupwise/ldl3.scdrs_group.cell_lab
-groupwise/ldl4.scdrs_group.cell_lab
-groupwise/nafld.scdrs_group.cell_lab
-groupwise/pdff.scdrs_group.cell_lab
-groupwise/tg1.scdrs_group.cell_lab
-groupwise/tg2.scdrs_group.cell_lab
-groupwise/tg3.scdrs_group.cell_lab
-groupwise/tg4.scdrs_group.cell_lab
-groupwise/whr1.scdrs_group.cell_lab
-groupwise/whr2.scdrs_group.cell_lab
-groupwise/whr3.scdrs_group.cell_lab
-groupwise/whr4.scdrs_group.cell_lab
+plots/
 full_traits.gs
+.idea/

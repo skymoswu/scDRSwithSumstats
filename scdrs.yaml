@@ -1,25 +1,12 @@
-adata:  "../20240528_hss_scdrs/data/adata/hs_apcs_snn.h5ad"
+adata:  "converse_data/hs_whole_snn.h5ad"
 gene_loc: "/home/skymoswu/bin/MAGMA/NCBI37.3/NCBI37.3.gene.loc"
 bfile: "/home/skymoswu/bin/MAGMA/g1000_eur/g1000_eur"
-fullscoredir: "full_scores"
+fullscoredir: "full_scores_whole"
 
 traits:
         nafld: '../20240414_hss_cellect/munged_stats/nafld/GCST90271622.tsv.gz'
         pdff: '../20240414_hss_cellect/munged_stats/nafld/PDFF_UKBB.tsv.gz'
         ldl1: '../20240414_hss_cellect/munged_stats/ldl/GCST90019512_buildGRCh37.tsv.gz'
-        ldl2: '../20240414_hss_cellect/munged_stats/ldl/GCST90179148_buildGRCh37.tsv.gz'
-        ldl3: '../20240414_hss_cellect/munged_stats/ldl/GCST90239655_buildGRCh37.tsv.gz'
-        ldl4: '../20240414_hss_cellect/munged_stats/ldl/GCST90239658_buildGRCh37.tsv.gz'
         tg1: '../20240414_hss_cellect/munged_stats/tg/GCST90019523.tsv.gz'
-        tg2: '../20240414_hss_cellect/munged_stats/tg/GCST90179149.tsv.gz'
-        tg3: '../20240414_hss_cellect/munged_stats/tg/GCST90239661_buildGRCh37.tsv.gz'
-        tg4: '../20240414_hss_cellect/munged_stats/tg/GCST90239664.tsv.gz'
         bmi1: '../20240414_hss_cellect/munged_stats/bmi/25673413-GCST002783-EFO_0004340-build36.f.tsv.gz'
-        bmi2: '../20240414_hss_cellect/munged_stats/bmi/BMI-GERA+GIANT-2018.tsv.gz'
-        bmi3: '../20240414_hss_cellect/munged_stats/bmi/GCST90018947_buildGRCh37.tsv.gz'
-        bmi4: '../20240414_hss_cellect/munged_stats/bmi/GCST90179150_buildGRCh37.tsv.gz'
-        bmi5: '../20240414_hss_cellect/munged_stats/bmi/GCST90239664_buildGRCh37.tsv.gz'
         whr1: '../20240414_hss_cellect/munged_stats/whr/31217584-GCST008050-EFO_0004343-build37.f.tsv.gz'
-        whr2: '../20240414_hss_cellect/munged_stats/whr/GCST008050.tsv.gz'
-        whr3: '../20240414_hss_cellect/munged_stats/whr/GCST90103754_buildGRCh37.tsv.gz'
-        whr4: '../20240414_hss_cellect/munged_stats/whr/WHRadjBMI.tsv.gz'
